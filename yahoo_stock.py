@@ -8,7 +8,10 @@ import ConfigParser
 import codecs
 
 '''https://ntguardian.wordpress.com/2016/09/19/introduction-stock-market-data-python-1/
-https://pypi.python.org/pypi/pandas-datareader'''
+https://pypi.python.org/pypi/pandas-datareader
+
+This script downloads stock information from yahoo finance website. There's configuration file ie stocks.txt update it with Stock symbol
+'''
 
 config = ConfigParser.ConfigParser()
 config.read("stocks.txt")
