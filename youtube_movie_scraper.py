@@ -11,6 +11,7 @@ url = df['URL'].to_list()
 urllist=tuple(url)
 
 st.sidebar.title("YouTube Movie Scraper")
+st.sidebar.markdown("A generic scraper developed in Python to extract content from YouTube Movie links.")
 URL = st.sidebar.selectbox("Select YouTube URL:",urllist)
 
 # init an HTML Session
