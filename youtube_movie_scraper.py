@@ -52,7 +52,7 @@ def Other_Details(label_text,detail_type):
         v = row["metadataRowRenderer"]["contents"]
         if label == "Rating" and detail_type == "runs":
             return v[0]["runs"][0]["text"]            
-        if label == label_text and detail_type == "runs" and label <> "Rating":
+        if label == label_text and detail_type == "runs" and label != "Rating":
             v_list_1 = []
             for i in range(0,len(v)):
                 v_list_1.append(v[i]["runs"][0]["text"])
