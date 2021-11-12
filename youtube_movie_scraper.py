@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup as bs
 import streamlit as st
 import pandas as pd
 import os
+import html5lib
 
 df = pd.read_excel(os.path.join('data', 'url.xlsx'),sheet_name='url')
 df.dropna(inplace=True)
@@ -50,7 +51,7 @@ def Rating_detail(label):
     for row in row_data:
         label = row["metadataRowRenderer"]["title"]["runs"][0]["text"]
         v = row["metadataRowRenderer"]["contents"][0]
-        if label == "Rating":return v
+        if label == "Rating":return html5lib.__version__
             
 def Other_Details(label_text,detail_type):
     # other movie details
