@@ -36,8 +36,7 @@ def Description():
             break
 
 def Other_Details(label_text,detail_type):
-
-    # extract Rating , Release date, runtime
+    # other movie details
     d_2 = ""
     for j in range(0, len(data)):
         if "metadataRowContainerRenderer" in str(data[j]):
@@ -50,12 +49,19 @@ def Other_Details(label_text,detail_type):
         "metadataRowContainer"]["metadataRowContainerRenderer"]["rows"]
     for row in row_data:
         label = row["metadataRowRenderer"]["title"]["runs"][0]["text"]
-        v = row["metadataRowRenderer"]["contents"][0]
+        v = row["metadataRowRenderer"]["contents"]
         if label == label_text and detail_type == "runs":
-            return v["runs"][0]["text"]
+            v_list_1 = []
+            for i in range(0,len(v)):
+                v_list_1.append(v[i]["runs"][0]["text"])
+            return ",".join(v_list_1)
         elif label == label_text and detail_type == "simpleText":
-            return v["simpleText"]
+            v_list_2 = []
+            for i in range(0,len(v)):
+                v_list_2.append(v[i]["simpleText"])
+            return ",".join(v_list_2)
 
+# calling respective functions
 
 desc = Description()
 provd = Other_Details("Provider","runs")
@@ -64,42 +70,59 @@ rels_date = Other_Details("Release date","simpleText")
 run_time = Other_Details("Running time","simpleText")
 aud = Other_Details("Audio","simpleText")
 subs = Other_Details("Subtitle","simpleText")
-cast = Other_Details("Actors","runs")
+if subs == None:subs = Other_Details("Subtitles","simpleText")
+cast = Other_Details("Actor","runs")
+if cast == None:cast = Other_Details("Actors","runs")
 direc = Other_Details("Director","runs")
-prod =  Other_Details("Producers","runs")
-writer = Other_Details("Writers","runs")
-category = Other_Details("Genres","runs")
+if direc == None:direc = Other_Details("Directors","runs")
+prod =  Other_Details("Producer","runs")
+if prod == None:prod = Other_Details("Producers","runs")
+writer = Other_Details("Writer","runs")
+if writer == None:writer = Other_Details("Writers","runs")
+category = Other_Details("Genre","runs")
+if category == None:category = Other_Details("Genres","runs")
 
-c1,c2,c3,c4 = st.columns(4)
-c5,c6,c7,c8 = st.columns(4)
-c9,c10,c11,c12 = st.columns(4)
+c1,c2,c3,c4,c5,c6 = st.columns(6)
+c7,c8,c9 = st.columns(3)
+c10,c11 = st.columns(2)
+c12,c13 = st.columns(2)
 
 try :
+    # row 1
     with c1:
-         st.text_area("Title",title)
+         title = st.text_area("Title",title)
     with c2:
-         st.text_area("Provider", provd)
+         provd = st.text_area("Provider", provd)
     with c3:
-         st.text_area("Rating",ratg)
+         ratg = st.text_area("Rating",ratg)
     with c4:
-         st.text_area("Release date", rels_date)
+         rels_date = st.text_area("Release date", rels_date)
     with c5:
-         st.text_area("Running time",run_time)
+         run_time = st.text_area("Running time",run_time)
+    # row 2
     with c6:
-         st.text_area("Audio", aud)
+         subs = st.text_area("Subtitle",subs)
     with c7:
-         st.text_area("Subtitle",subs)
+         aud = st.text_area("Audio", aud)
     with c8:
-         st.text_area("Genres", category)
-
+         category = st.text_area("Genres", category)
     with c9:
-         st.text_area("Director",direc)
+         direc = st.text_area("Director",direc)
+    # row 3
     with c10:
-         st.text_area("Producers", prod)
+         prod = st.text_area("Producers", prod)
     with c11:
-         st.text_area("Writers",writer)
+         writer = st.text_area("Writers",writer)
+    # row 4
     with c12:
-         st.text_area("Actors", cast)
-    st.text_area("Description", desc, height=200)
+         cast = st.text_area("Actors", cast,height=240)
+    with c13:
+         desc = st.text_area("Description", desc, height=240)
+    genstr = title + "|" + desc + "|" + provd + "|" + ratg + "|" + rels_date + "|" + run_time + "|" + aud + "|" + subs + "|" \
+             + cast + "|" + direc + "|" + prod + "|" + writer + "|" + category
+    st.sidebar.download_button(label="Download Ouput", data=genstr, file_name="Output.txt", mime="text/plain")
 except Exception as e:
         st.error(e)
+
+
+
