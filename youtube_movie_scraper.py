@@ -66,6 +66,7 @@ def Other_Details(label_text,detail_type):
 desc = Description()
 provd = Other_Details("Provider","runs")
 ratg = Other_Details("Rating","runs")
+
 rels_date = Other_Details("Release date","simpleText")
 run_time = Other_Details("Running time","simpleText")
 aud = Other_Details("Audio","simpleText")
