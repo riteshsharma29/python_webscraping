@@ -35,6 +35,23 @@ def Description():
             return j["videoDetails"]["shortDescription"]
             break
 
+def Rating_detail():
+    # other movie details
+    d_2 = ""
+    for j in range(0, len(data)):
+        if "metadataRowContainerRenderer" in str(data[j]):
+            d_2 += str(data[j])
+            break
+    dd_2 = d_2.split(" = ")[1]
+    jj = json.loads(dd_2.replace(";</script>", ""))
+    row_data = \
+    jj["contents"]["twoColumnWatchNextResults"]["results"]["results"]["contents"][1]["videoSecondaryInfoRenderer"][
+        "metadataRowContainer"]["metadataRowContainerRenderer"]["rows"]
+    for row in row_data:
+        label = row["metadataRowRenderer"]["title"]["runs"][0]["text"]
+        v = row["metadataRowRenderer"]["contents"][0]
+        if label == "Rating":return v["runs"][0]["text"]
+            
 def Other_Details(label_text,detail_type):
     # other movie details
     d_2 = ""
@@ -65,7 +82,7 @@ def Other_Details(label_text,detail_type):
 
 desc = Description()
 provd = Other_Details("Provider","runs")
-ratg = Other_Details("Rating","runs")
+ratg = Rating_detail()
 rels_date = Other_Details("Release date","simpleText")
 run_time = Other_Details("Running time","simpleText")
 aud = Other_Details("Audio","simpleText")
