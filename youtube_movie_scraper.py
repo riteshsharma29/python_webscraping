@@ -19,7 +19,7 @@ URL = st.sidebar.selectbox("Select YouTube URL:",urllist)
 session = HTMLSession()
 # get the html content
 response = session.get(URL)
-soup = bs(response.html.html, "html.parser")
+soup = bs(response.content, "html.parser")
 data = soup.find_all("script")
 
 # extract title
