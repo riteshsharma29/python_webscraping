@@ -35,7 +35,7 @@ def Description():
             return j["videoDetails"]["shortDescription"]
             break
 
-def Rating_detail():
+def Rating_detail(label):
     # other movie details
     d_2 = ""
     for j in range(0, len(data)):
@@ -50,7 +50,7 @@ def Rating_detail():
     for row in row_data:
         label = row["metadataRowRenderer"]["title"]["runs"][0]["text"]
         v = row["metadataRowRenderer"]["contents"][0]
-        return v["runs"][0]["text"]
+        if label == "Rating":return v["runs"][0]["text"]
             
 def Other_Details(label_text,detail_type):
     # other movie details
@@ -82,7 +82,7 @@ def Other_Details(label_text,detail_type):
 
 desc = Description()
 provd = Other_Details("Provider","runs")
-ratg = Rating_detail()
+ratg = Rating_detail("Rating")
 rels_date = Other_Details("Release date","simpleText")
 run_time = Other_Details("Running time","simpleText")
 aud = Other_Details("Audio","simpleText")
