@@ -51,7 +51,7 @@ def Rating_detail(label):
     for row in row_data:
         label = row["metadataRowRenderer"]["title"]["runs"][0]["text"]
         v = row["metadataRowRenderer"]["contents"][0]
-        if label == "Rating":return html5lib.__version__
+        return row["metadataRowRenderer"]["title"]["runs"]
             
 def Other_Details(label_text,detail_type):
     # other movie details
