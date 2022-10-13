@@ -1,6 +1,7 @@
 beautifulsoup4==4.10.0
 pandas==1.2.4
 requests_html==0.10.0
-streamlit==1.1.0
+streamlit==1.13.0
 xlrd==1.2.0
 html5lib==1.1.0
+Footer
